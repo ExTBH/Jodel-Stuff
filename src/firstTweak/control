@@ -1,0 +1,9 @@
+Package: com.extbh.pepe
+Name: Pepe
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: My First Tweak Made @ 27/2/2022
+Maintainer: ExT
+Author: ExT
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
