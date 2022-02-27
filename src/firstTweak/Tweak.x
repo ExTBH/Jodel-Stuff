@@ -1,4 +1,6 @@
-#import "Tweak.h"
+// #import "Tweak.h"
+
+NSString* PEPEStatusLabel = @"Hi From Theos!";
 
 %group CustomStatusBar
 %hook _UIStatusBarStringView
@@ -12,7 +14,6 @@
 }
 %end
 %end
-
 
 %ctor {
 	%init(CustomStatusBar)
