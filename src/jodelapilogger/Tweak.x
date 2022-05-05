@@ -6,16 +6,26 @@
 %hook JDLAPIRequestHMACHashBuilder
 // Log secret to Sys log
 -(id)secretKey {
-	NSLog(@"secretkey: %@", %orig);
+	NSLog(@"JDLLogger secretkey: %@", %orig);
 
 	return %orig;
 
 }
 // Log client type to Sys log
 -(id)clientType {
-	NSLog(@"clientType: %@", %orig);
+	NSLog(@"JDLLogger clientType: %@", %orig);
 
 	return %orig;
+
+}
+
+%end
+
+%hook SWGCredentials
+-(id)clientId {
+		NSLog(@"JDLLogger clientID: %@", %orig);
+
+		return %orig;
 
 }
 
