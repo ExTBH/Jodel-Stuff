@@ -1,0 +1,10 @@
+Package: com.extbh.jodel++
+Name: Jodel++ By ExT
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: ExT
+Author: ExT
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
+Version: 0.0.1-8+debug
+Installed-Size: 200

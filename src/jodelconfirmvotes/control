@@ -1,0 +1,9 @@
+Package: com.yourcompany.jodelconfirmvotes
+Name: JodelConfirmVotes
+Version: 0.0.3
+Architecture: iphoneos-arm
+Description: Adding confirm alert for votes
+Maintainer: ExT
+Author: ExT
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
