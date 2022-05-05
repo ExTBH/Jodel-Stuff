@@ -1,0 +1,9 @@
+Package: com.ext.jodel-api-logger
+Name: Jodel API Logger
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Tested on Iphone 8+ IOS 14.3 only
+Maintainer: ExT
+Author: ExT
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
