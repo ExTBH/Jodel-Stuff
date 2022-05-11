@@ -1,19 +1,19 @@
 
 #import "Tweak.h"
+#import "JDLAPIRequestHMACHashBuilder.h"
+#import "SWGCredentials.h"
+
 
 
 // Hook HMAC Builder
+
+
 %hook JDLAPIRequestHMACHashBuilder
-// Log secret to Sys log
--(id)secretKey {
-	NSLog(@"JDLLogger secretkey: %@", %orig);
 
-	return %orig;
-
-}
-// Log client type to Sys log
 -(id)clientType {
-	NSLog(@"JDLLogger clientType: %@", %orig);
+	SWGCredentials *instance = [[SWGCredentials alloc] init];
+
+	NSLog(@"Jodel API Info\nsecretKey: %@\nclientType: %@\nclientId: %@",[self secretKey], %orig, [instance clientId]);
 
 	return %orig;
 
@@ -21,19 +21,20 @@
 
 %end
 
-%hook SWGCredentials
--(id)clientId {
-		NSLog(@"JDLLogger clientID: %@", %orig);
+// %hook SWGCredentials
+// -(id)clientId {
+// 		NSLog(@"JDLLogger clientID: %@", %orig);
 
-		return %orig;
+// 		return %orig;
 
-}
--(id)appleDeviceToken {
+// }
+// -(id)appleDeviceToken {
 
-		NSLog(@"JDLLogger appleDeviceToken: %@", %orig);
+// 		NSLog(@"JDLLogger appleDeviceToken: %@", %orig);
 
-		return %orig;
+// 		return %orig;
 
-}
+// }
 
-%end
+// %end
+

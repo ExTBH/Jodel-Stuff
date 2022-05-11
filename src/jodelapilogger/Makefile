@@ -1,4 +1,6 @@
-TARGET := iphone:clang:latest:7.0
+export SDKVERSION=13.7
+ARCHS = arm64 arm64e
+
 INSTALL_TARGET_PROCESSES = Jodel
 
 
