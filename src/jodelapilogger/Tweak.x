@@ -28,5 +28,12 @@
 		return %orig;
 
 }
+-(id)appleDeviceToken {
+
+		NSLog(@"JDLLogger appleDeviceToken: %@", %orig);
+
+		return %orig;
+
+}
 
 %end
