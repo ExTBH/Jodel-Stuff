@@ -11,9 +11,11 @@
 %hook JDLAPIRequestHMACHashBuilder
 
 -(id)clientType {
-	SWGCredentials *instance = [[SWGCredentials alloc] init];
 
-	NSLog(@"Jodel API Info\nsecretKey: %@\nclientType: %@\nclientId: %@",[self secretKey], %orig, [instance clientId]);
+	// TODO: figure out how to call [clientId] from another class. > Find a class with reference to both classes
+	
+
+	NSLog(@"Jodel API Info\nsecretKey: %@\nclientType: %@\nclientId: ",[self secretKey], %orig);
 
 	return %orig;
 
