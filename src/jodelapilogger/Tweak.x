@@ -12,6 +12,9 @@
 
 -(id)clientType {
 
+
+	NSLog(@"%@", [NSThread callStackSymbols]);
+
 	// TODO: figure out how to call [clientId] from another class. > Find a class with reference to both classes
 	
 	// figur how to log stack trace when the method is called
@@ -28,10 +31,11 @@
 
 %hook SWGCredentials
 -(id)clientId {
+	NSLog(@"%@", [NSThread callStackSymbols]);
 	NSLog(@"Jodel API Info\nappleDeviceToken: %@\nclientId: %@\ndeviceuid: %@\nadId: %@\nregistrationData: %@",
 	[self appleDeviceToken],
 	%orig,
-	[self deviceuid],
+	[self deviceUid],
 	[self adId],
 	[self registrationData]);
 	return %orig;
