@@ -29,6 +29,7 @@
 
 %end
 
+
 %hook SWGCredentials
 -(id)clientId {
 	NSLog(@"%@", [NSThread callStackSymbols]);
@@ -40,6 +41,24 @@
 	[self registrationData]);
 	return %orig;
 }
-
 %end
 
+%hook DCDevice
+
+// [generateTokenWithCompletionHandler] return an Address, use it to access DCDevice instance and call [generateAppleToken]
+// Only Work on app first launch after getting to Age select view
+
+%new
+-(void)generateAppleToken{
+	[self generateTokenWithCompletionHandler:^(NSData *token, NSError *error){
+		NSString *dataString = [token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+		NSLog(@"deez %s: %@",__PRETTY_FUNCTION__, dataString);
+	}];
+}
+
+- (void)generateTokenWithCompletionHandler:(void (^)(NSData *token, NSError *error))completion{
+		NSLog(@"%s: %@",__PRETTY_FUNCTION__, completion);
+	%orig;
+}
+
+%end
