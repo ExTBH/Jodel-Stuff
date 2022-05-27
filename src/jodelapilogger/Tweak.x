@@ -1,19 +1,27 @@
 
 #import "Tweak.h"
+#import "JDLAPIRequestHMACHashBuilder.h"
+#import "SWGCredentials.h"
+
 
 
 // Hook HMAC Builder
+
+
 %hook JDLAPIRequestHMACHashBuilder
-// Log secret to Sys log
--(id)secretKey {
-	NSLog(@"JDLLogger secretkey: %@", %orig);
 
-	return %orig;
-
-}
-// Log client type to Sys log
 -(id)clientType {
-	NSLog(@"JDLLogger clientType: %@", %orig);
+
+
+	NSLog(@"%@", [NSThread callStackSymbols]);
+
+	// TODO: figure out how to call [clientId] from another class. > Find a class with reference to both classes
+	
+	// figur how to log stack trace when the method is called
+	NSLog(@"Jodel API Info\nsecretKey: %@\nclientType: %@\naccessToken: %@",
+	[self secretKey],
+	%orig,
+	[self accessToken]);
 
 	return %orig;
 
@@ -21,19 +29,36 @@
 
 %end
 
+
 %hook SWGCredentials
 -(id)clientId {
-		NSLog(@"JDLLogger clientID: %@", %orig);
-
-		return %orig;
-
+	NSLog(@"%@", [NSThread callStackSymbols]);
+	NSLog(@"Jodel API Info\nappleDeviceToken: %@\nclientId: %@\ndeviceuid: %@\nadId: %@\nregistrationData: %@",
+	[self appleDeviceToken],
+	%orig,
+	[self deviceUid],
+	[self adId],
+	[self registrationData]);
+	return %orig;
 }
--(id)appleDeviceToken {
+%end
 
-		NSLog(@"JDLLogger appleDeviceToken: %@", %orig);
+%hook DCDevice
 
-		return %orig;
+// [generateTokenWithCompletionHandler] return an Address, use it to access DCDevice instance and call [generateAppleToken]
+// Only Work on app first launch after getting to Age select view
 
+%new
+-(void)generateAppleToken{
+	[self generateTokenWithCompletionHandler:^(NSData *token, NSError *error){
+		NSString *dataString = [token base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+		NSLog(@"deez %s: %@",__PRETTY_FUNCTION__, dataString);
+	}];
+}
+
+- (void)generateTokenWithCompletionHandler:(void (^)(NSData *token, NSError *error))completion{
+		NSLog(@"%s: %@",__PRETTY_FUNCTION__, completion);
+	%orig;
 }
 
 %end
