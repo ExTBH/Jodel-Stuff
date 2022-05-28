@@ -31,6 +31,7 @@
 
 
 %hook SWGCredentials
+
 -(id)clientId {
 	NSLog(@"%@", [NSThread callStackSymbols]);
 	NSLog(@"Jodel API Info\nappleDeviceToken: %@\nclientId: %@\ndeviceuid: %@\nadId: %@\nregistrationData: %@",
@@ -60,5 +61,20 @@
 		NSLog(@"%s: %@",__PRETTY_FUNCTION__, completion);
 	%orig;
 }
+
+%end
+
+%hook JDLUUID
++(id)generateNewUuid{
+	NSString *ret = %orig;
+	NSLog(@"%s: OLD: %@",__PRETTY_FUNCTION__, ret);
+
+	ret = [ret stringByReplacingOccurrencesOfString:@"a" withString:@"e"];
+	ret = [ret stringByReplacingOccurrencesOfString:@"6" withString:@"9"];
+
+	NSLog(@"%s: NEW: %@",__PRETTY_FUNCTION__, ret);
+	return ret;
+}
+
 
 %end
