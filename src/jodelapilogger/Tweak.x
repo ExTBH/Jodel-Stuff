@@ -2,7 +2,7 @@
 #import "Tweak.h"
 #import "JDLAPIRequestHMACHashBuilder.h"
 #import "SWGCredentials.h"
-
+#import <mach-o/dyld.h>
 
 
 // Hook HMAC Builder
@@ -76,5 +76,35 @@
 	return ret;
 }
 
+
+%end
+
+%hook DCDevice
+
+-(bool)isSupported{
+	NSLog(@"isSupported Got called");
+
+	return FALSE;
+}
+
+%end
+
+
+
+
+
+void orig_new() {
+	NSLog(@"New Orig called");
+}
+
+%hook JDLRegistrationViewController
+-(void)registerTapped:(id)registrationButton{
+	NSLog(@"Mystery Called : %@", registrationButton);
+
+	unsigned long funcAddress = _dyld_get_image_vmaddr_slide(0) + 0x1001d7cf8;
+	NSLog(@"Mystery Called : about to hook");
+	MSHookFunction((void *)funcAddress, (void *)orig_new, NULL);
+	NSLog(@"Mystery Called : Hoooked");
+}
 
 %end
